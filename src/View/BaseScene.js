@@ -34,7 +34,7 @@ class BaseScene {
             mountain: new StaticObject(this.scene, this.world, this.gltfLoader, this.textureLoader),
             dinasour_mountain: new StaticObject(this.scene, this.world, this.gltfLoader, this.textureLoader)
         }
-        instruction.show("Use WASD to move around the world!")
+        // instruction.show("Use WASD to move around the world!")
     }
 
     initialize() {

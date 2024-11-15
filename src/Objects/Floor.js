@@ -58,7 +58,7 @@ class Floor {
         );
     }
 
-    initialize() {
+    initialize(fswitch=true) {
         // Generate UV2 coordinates for aoMap
         this.geometry.setAttribute('uv2', new THREE.BufferAttribute(this.geometry.attributes.uv.array, 2));
         
@@ -67,8 +67,10 @@ class Floor {
         this.floor.rotation.x = -1 * (Math.PI / 2);
         
         this.body.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
-        
-        this.scene.add(this.floor);
+        if (fswitch){
+            console.log("Floor added")
+            this.scene.add(this.floor);
+        }
         this.world.addBody(this.body);
         this.world.addContactMaterial(this.contactMaterial);
     }

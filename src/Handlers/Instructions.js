@@ -31,6 +31,7 @@ class Instruction {
         element.style.color = '#fff';
         element.style.fontSize = '20px';
         element.style.borderRadius = '5px';
+        element.style.textAlign = 'center';
         element.style.display = 'none'; // Initially hidden
         return element;
     }

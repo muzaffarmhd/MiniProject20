@@ -4,6 +4,7 @@ import Stats from 'https://cdnjs.cloudflare.com/ajax/libs/stats.js/r17/Stats.min
 import SceneManager from './Handlers/SceneManager.js';
 import { StateHandler } from './Handlers/StateHandler.js';
 
+import StartScene from './View/StartScene.js';
 import BaseScene from './View/BaseScene.js';
 
 const canvas = document.querySelector('.webgl');
@@ -40,9 +41,13 @@ startBtn.addEventListener('click', () => {
     startGame();
 });
 function startGame() {
+    const renderer = new THREE.WebGLRenderer({
+        canvas: canvas
+    });
     const sceneManager = new SceneManager(canvas);
     const baseScene = new BaseScene(sceneManager, sceneManager.inputHandler, sceneManager.gltfLoader, sceneManager.textureLoader);
-    sceneManager.setCurrentScene(baseScene);
+    const startScene = new StartScene(sceneManager, sceneManager.inputHandler, sceneManager.gltfLoader, sceneManager.textureLoader);
+    sceneManager.setCurrentScene(baseScene, renderer);
     const stateHandler = new StateHandler(sceneManager.inputHandler, window);
 
     const sizes = {
@@ -61,9 +66,6 @@ function startGame() {
     }
 
 
-    const renderer = new THREE.WebGLRenderer({
-        canvas: canvas
-    });
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;

@@ -32,16 +32,16 @@ class SceneManager{
         this.fadeDuration = 2000;  // Duration of the fade-in effect in milliseconds
         this.canvas = canvas;
     }
-    setCurrentScene(scene){
-        this.transitionTo(scene);
+    setCurrentScene(scene, renderer=null){
+        this.transitionTo(scene, renderer);
     }
     update(deltaTime){
         this.currentScene.update(deltaTime);
     }
-    transitionTo(newScene) {
+    transitionTo(newScene, renderer=null) {
         this.fadeOutCurrentScene()
           .then(() => this.showLoadingScreen())
-          .then(() => this.loadNewScene(newScene))
+          .then(() => this.loadNewScene(newScene, renderer))
           .then(() => this.hideLoadingScreen())
           .then(() => this.fadeInNewScene());
     }
@@ -85,9 +85,9 @@ class SceneManager{
         });
       }
     
-    loadNewScene(newScene) {
+    loadNewScene(newScene, renderer=null) {
         return new Promise(resolve => {
-          newScene.initialize();
+          newScene.initialize(renderer);
           this.loadingManager.onLoad = () => resolve();  
           this.currentScene = newScene;
         });
